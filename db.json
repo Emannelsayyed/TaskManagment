@@ -2,54 +2,83 @@
   "users": [],
   "tasks": [
     {
-      "id": "0.06162916820976505",
-      "name": "C#",
-      "description": "c task",
+      "id": "0.06734370658647149",
+      "name": "Database",
+      "description": "Data task",
       "status": "pending",
-      "deadline": "2025-05-09T00:00:00.000Z",
+      "deadline": "2025-04-28T00:00:00.000Z",
       "statusHistory": [
         {
           "status": "pending",
-          "timestamp": "2025-04-19T20:03:07.581Z"
+          "timestamp": "2025-04-20T20:17:27.755Z"
         }
       ]
     },
     {
-      "id": "0.6395916011444807",
-      "name": "Network",
-      "description": "Network task",
-      "status": "active",
-      "deadline": "2025-05-03T00:00:00.000Z",
-      "statusHistory": [
-        {
-          "status": "active",
-          "timestamp": "2025-04-19T20:03:58.148Z"
-        }
-      ]
-    },
-    {
-      "id": "0.06670588372194641",
-      "name": "Database",
-      "description": "Data",
-      "status": "active",
-      "deadline": "2025-05-01T00:00:00.000Z",
-      "statusHistory": [
-        {
-          "status": "active",
-          "timestamp": "2025-04-19T20:15:27.782Z"
-        }
-      ]
-    },
-    {
-      "id": "0.4247205727203337",
+      "id": "0.27941830135285417",
       "name": "Big Data",
-      "description": "data",
+      "description": "data task",
       "status": "active",
-      "deadline": "2025-04-20T00:00:00.000Z",
+      "deadline": "2025-05-05T00:00:00.000Z",
       "statusHistory": [
         {
           "status": "active",
-          "timestamp": "2025-04-19T20:27:42.765Z"
+          "timestamp": "2025-04-20T20:17:41.707Z"
+        },
+        {
+          "status": "finished",
+          "timestamp": "2025-04-20T20:18:07.796Z"
+        },
+        {
+          "status": "active",
+          "timestamp": "2025-04-20T20:22:52.212Z"
+        }
+      ]
+    },
+    {
+      "id": "0.3694475340919515",
+      "name": "C#",
+      "description": "c task",
+      "status": "finished",
+      "deadline": "2025-04-22T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "finished",
+          "timestamp": "2025-04-20T20:18:01.019Z"
+        },
+        {
+          "status": "active",
+          "timestamp": "2025-04-20T20:18:36.301Z"
+        },
+        {
+          "status": "finished",
+          "timestamp": "2025-04-20T20:19:05.588Z"
+        }
+      ]
+    },
+    {
+      "id": "0.641004788714889",
+      "name": "Network",
+      "description": "network task",
+      "status": "active",
+      "deadline": "2025-05-04T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "active",
+          "timestamp": "2025-04-20T20:18:29.044Z"
+        }
+      ]
+    },
+    {
+      "id": "0.9411322083486123",
+      "name": "C++",
+      "description": "c task",
+      "status": "pending",
+      "deadline": "2025-05-10T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "timestamp": "2025-04-20T20:19:20.547Z"
         }
       ]
     }
