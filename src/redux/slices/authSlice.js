@@ -9,7 +9,7 @@ const authSlice = createSlice({
   reducers: {
     register(state, action) {
       state.user = action.payload;
-      state.isAuthenticated = false; // Require login after registration
+      state.isAuthenticated = false; 
     },
     login(state, action) {
       state.user = action.payload;

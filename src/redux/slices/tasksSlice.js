@@ -1,41 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-// Helper functions for localStorage
-const saveTasksToLocalStorage = (tasks) => {
-  try {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  } catch (err) {
-    console.error('Error saving tasks to localStorage:', err);
-  }
-};
 
-const loadTasksFromLocalStorage = () => {
-  try {
-    const tasks = localStorage.getItem('tasks');
-    return tasks ? JSON.parse(tasks) : [];
-  } catch (err) {
-    console.error('Error loading tasks from localStorage:', err);
-    return [];
-  }
-};
+const API_URL = 'http://localhost:3001/tasks';
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
-  console.log('Fetching tasks from localStorage...');
-  const tasks = loadTasksFromLocalStorage();
-  console.log('Fetched tasks:', tasks);
-  return tasks;
+  console.log('Fetching tasks from json-server...');
+  const response = await axios.get(API_URL);
+  console.log('Fetched tasks:', response.data);
+  return response.data;
 });
 
 export const createTask = createAsyncThunk('tasks/createTask', async (task, { rejectWithValue }) => {
   try {
     console.log('Creating task:', task);
-    const newTask = { ...task, id: Math.random().toString() };
-    // Update localStorage
-    const existingTasks = loadTasksFromLocalStorage();
-    const updatedTasks = [...existingTasks, newTask];
-    saveTasksToLocalStorage(updatedTasks);
-    console.log('Task created:', newTask);
-    return newTask;
+    const newTask = { ...task, id: Math.random().toString() }; 
+    const response = await axios.post(API_URL, newTask);
+    console.log('Task created:', response.data);
+    return response.data;
   } catch (err) {
     console.error('Error creating task:', err);
     return rejectWithValue(err.message || 'Failed to create task');
@@ -51,18 +33,16 @@ export const updateTaskStatus = createAsyncThunk(
       if (!task) {
         return rejectWithValue('Task not found');
       }
-      // Validate status transition based on history
+
       const lastStatus = task.statusHistory[task.statusHistory.length - 1]?.status;
       if (status === 'finished' && lastStatus !== 'active') {
         return rejectWithValue('Task must be active before marking as finished');
       }
       console.log('Updating task status:', { id, status });
       const updatedTask = { id, status, statusHistory: [...task.statusHistory, { status, timestamp: new Date().toISOString() }] };
-      // Update localStorage
-      const existingTasks = loadTasksFromLocalStorage();
-      const updatedTasks = existingTasks.map((t) => (t.id === id ? { ...t, ...updatedTask } : t));
-      saveTasksToLocalStorage(updatedTasks);
-      return updatedTask;
+ 
+      const response = await axios.put(`${API_URL}/${id}`, updatedTask);
+      return response.data;
     } catch (err) {
       console.error('Error updating task status:', err);
       return rejectWithValue(err.message || 'Failed to update task status');
@@ -73,10 +53,8 @@ export const updateTaskStatus = createAsyncThunk(
 export const removeTask = createAsyncThunk('tasks/removeTask', async (id, { rejectWithValue }) => {
   try {
     console.log('Removing task:', id);
-    // Update localStorage
-    const existingTasks = loadTasksFromLocalStorage();
-    const updatedTasks = existingTasks.filter((t) => t.id !== id);
-    saveTasksToLocalStorage(updatedTasks);
+
+    await axios.delete(`${API_URL}/${id}`);
     return id;
   } catch (err) {
     console.error('Error removing task:', err);

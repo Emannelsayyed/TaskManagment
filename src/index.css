@@ -1,4 +1,4 @@
-/* Cute, pastel-themed styles */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 body {
@@ -244,7 +244,7 @@ body {
   white-space: nowrap;
 }
 
-/* Responsive design */
+
 @media (max-width: 600px) {
   .container {
     padding: 15px;

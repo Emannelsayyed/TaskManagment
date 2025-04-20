@@ -1,3 +1,57 @@
 {
-  "tasks": []
+  "users": [],
+  "tasks": [
+    {
+      "id": "0.06162916820976505",
+      "name": "C#",
+      "description": "c task",
+      "status": "pending",
+      "deadline": "2025-05-09T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "pending",
+          "timestamp": "2025-04-19T20:03:07.581Z"
+        }
+      ]
+    },
+    {
+      "id": "0.6395916011444807",
+      "name": "Network",
+      "description": "Network task",
+      "status": "active",
+      "deadline": "2025-05-03T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "active",
+          "timestamp": "2025-04-19T20:03:58.148Z"
+        }
+      ]
+    },
+    {
+      "id": "0.06670588372194641",
+      "name": "Database",
+      "description": "Data",
+      "status": "active",
+      "deadline": "2025-05-01T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "active",
+          "timestamp": "2025-04-19T20:15:27.782Z"
+        }
+      ]
+    },
+    {
+      "id": "0.4247205727203337",
+      "name": "Big Data",
+      "description": "data",
+      "status": "active",
+      "deadline": "2025-04-20T00:00:00.000Z",
+      "statusHistory": [
+        {
+          "status": "active",
+          "timestamp": "2025-04-19T20:27:42.765Z"
+        }
+      ]
+    }
+  ]
 }

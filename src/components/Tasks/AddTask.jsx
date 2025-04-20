@@ -9,26 +9,37 @@ const AddTask = () => {
   const [deadline, setDeadline] = useState('');
   const [status, setStatus] = useState('pending');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
+    setIsSubmitting(true); 
+
+  
     if (!name || !description || !deadline || !status) {
       setError('All fields are required');
+      setIsSubmitting(false);
       return;
     }
+
+
     const selectedDate = new Date(deadline);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (selectedDate < today) {
       setError('Deadline cannot be in the past');
+      setIsSubmitting(false);
       return;
     }
+
+   
     try {
-      console.log('Submitting task:', { name, description, status, deadline });
-      const result = await dispatch(
+      await dispatch(
         createTask({
           name,
           description,
@@ -37,11 +48,23 @@ const AddTask = () => {
           statusHistory: [{ status, timestamp: new Date().toISOString() }],
         })
       ).unwrap();
-      console.log('Task created successfully:', result);
-      navigate('/dashboard');
+
+      
+      setSuccessMessage('Task added successfully!');
+      setName('');
+      setDescription('');
+      setDeadline('');
+      setStatus('pending');
+      
+      
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500); 
+
     } catch (err) {
-      console.error('Task creation failed:', err);
       setError(err.message || 'Failed to add task');
+    } finally {
+      setIsSubmitting(false); 
     }
   };
 
@@ -49,27 +72,33 @@ const AddTask = () => {
     <div className="card">
       <h2>Add New Task</h2>
       {error && <p className="error">{error}</p>}
+      {successMessage && <p className="success">{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Task Name</label>
+          <label htmlFor="task-name">Task Name</label>
           <input
+            id="task-name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            placeholder="Enter task name"
           />
         </div>
         <div className="form-group">
-          <label>Description</label>
+          <label htmlFor="task-description">Description</label>
           <textarea
+            id="task-description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            placeholder="Enter task description"
           />
         </div>
         <div className="form-group">
-          <label>Deadline</label>
+          <label htmlFor="task-deadline">Deadline</label>
           <input
+            id="task-deadline"
             type="date"
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
@@ -77,8 +106,9 @@ const AddTask = () => {
           />
         </div>
         <div className="form-group">
-          <label>Status</label>
+          <label htmlFor="task-status">Status</label>
           <select
+            id="task-status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
             required
@@ -88,12 +118,15 @@ const AddTask = () => {
             <option value="finished">Finished</option>
           </select>
         </div>
-        <button type="submit" className="primary">
-          <i className="fas fa-plus"></i> Add Task
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Add Task'}
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default AddTask;
+
